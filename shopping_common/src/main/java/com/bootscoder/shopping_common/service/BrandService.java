@@ -1,18 +1,24 @@
 package com.bootscoder.shopping_common.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.Brand;
 
+import java.util.List;
+
 /**
- * 商品服务接口
- *
- * @author bootsCoder
- * @date created on 2024/4/14
+ * 品牌服务
  */
 public interface BrandService {
-    /**
-     * 查询品牌
-     * @param id
-     * @return
-     */
+    // 根据id查询品牌
     Brand findById(Long id);
+    // 查询所有品牌
+    List<Brand> findAll();
+    // 新增品牌
+    void add(Brand brand);
+    // 修改品牌
+    void update(Brand brand);
+    // 删除品牌
+    void delete(Long id);
+    // 分页查询品牌
+    Page<Brand> search(Brand brand,int page,int size);
 }

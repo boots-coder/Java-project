@@ -1,6 +1,5 @@
 package com.bootscoder.shopping_common.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -4,23 +4,52 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <groupId>com.bootscoder</groupId>
     <artifactId>shopping</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <!-- 为表示其为父工程，设置打包方式-->
     <packaging>pom</packaging>
 
-
-    <!-- 子模块  -->
+    <!--子模块-->
     <modules>
-
+        <!-- 通用模块，包含实体类，服务接口，工具类等 -->
         <module>shopping_common</module>
+        <!-- 商品服务 -->
         <module>shopping_goods_service</module>
-
-
+        <!-- 管理员管理网站操作的api -->
+        <module>shopping_manager_api</module>
+        <!-- 管理员服务 -->
+        <module>shopping_admin_service</module>
+        <!-- 文件服务 -->
+        <module>shopping_file_service</module>
+        <!-- 广告服务 -->
+        <module>shopping_category_service</module>
+        <!-- 网站用户操作广告的api -->
+        <module>shopping_category_customer_api</module>
+        <!-- 搜索服务 -->
+        <module>shopping_search_service</module>
+        <!-- 用户搜索的api -->
+        <module>shopping_search_customer_api</module>
+        <!-- 短信服务 -->
+        <module>shopping_message_service</module>
+        <!-- 用户服务 -->
+        <module>shopping_user_service</module>
+        <!-- 用户api -->
+        <module>shopping_user_customer_api</module>
+        <!-- 购物车服务 -->
+        <module>shopping_cart_service</module>
+        <!-- 购物车api -->
+        <module>shopping_cart_customer_api</module>
+        <!-- 订单服务 -->
+        <module>shopping_order_service</module>
+        <!-- 订单api -->
+        <module>shopping_order_customer_api</module>
+        <!-- 支付服务 -->
+        <module>shopping_pay_service</module>
+        <!-- 秒杀服务 -->
+        <module>shopping_seckill_service</module>
+        <!-- 秒杀api -->
+        <module>shopping_seckill_customer_api</module>
     </modules>
-
 
     <properties>
         <java.version>17</java.version>
@@ -34,7 +63,6 @@
         <mybatis-plus.version>3.5.4</mybatis-plus.version>
     </properties>
 
-
     <!-- 依赖版本声明 -->
     <dependencyManagement>
         <dependencies>
@@ -47,7 +75,6 @@
                 <scope>import</scope>
             </dependency>
 
-
             <!-- Spring Cloud Alibaba版本 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -56,7 +83,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
 
             <!-- SpringBoot版本 -->
             <dependency>
@@ -67,7 +93,6 @@
                 <scope>import</scope>
             </dependency>
 
-
             <!-- Dubbo版本 -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
@@ -77,14 +102,12 @@
                 <scope>import</scope>
             </dependency>
 
-
             <!-- lombok版本 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
-
 
             <!-- mybatis-plus版本 -->
             <dependency>
@@ -95,7 +118,6 @@
         </dependencies>
     </dependencyManagement>
 
-
     <!-- 通用依赖 -->
     <dependencies>
         <!-- bootstrap启动器 -->
@@ -104,7 +126,6 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
     </dependencies>
-
 
     <!-- 插件 -->
     <build>
@@ -121,7 +142,6 @@
         </plugins>
     </build>
 
-
     <!-- 依赖仓库路径 -->
     <repositories>
         <repository>
@@ -133,7 +153,6 @@
             </releases>
         </repository>
     </repositories>
-
 
     <!-- 插件仓库路径 -->
     <pluginRepositories>
@@ -149,4 +168,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
 </project>
