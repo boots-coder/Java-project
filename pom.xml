@@ -14,8 +14,11 @@
 
     <!-- 子模块  -->
     <modules>
-        <!-- 通用模块，包含实体类、服务接口、工具类等 -->
+
         <module>shopping_common</module>
+        <module>shopping_goods_service</module>
+
+
     </modules>
 
 
