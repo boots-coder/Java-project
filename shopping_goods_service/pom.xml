@@ -29,7 +29,7 @@
         </dependency>
         <!-- common -->
         <dependency>
-            <groupId>com.itbaizhan</groupId>
+            <groupId>com.bootscoder</groupId>
             <artifactId>shopping_common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
