@@ -1,6 +1,8 @@
 package com.bootscoder.shopping_goods_service.service;
 
 import com.bootscoder.shopping_common.pojo.Brand;
+import com.bootscoder.shopping_common.result.MyException;
+import com.bootscoder.shopping_common.result.ResultCode;
 import com.bootscoder.shopping_common.service.BrandService;
 import com.bootscoder.shopping_goods_service.mapper.BrandMapper;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -8,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Demo class
+ * Brand service 实现common中的类
  *
  * @author bootsCoder
  * @date created on 2024/4/15

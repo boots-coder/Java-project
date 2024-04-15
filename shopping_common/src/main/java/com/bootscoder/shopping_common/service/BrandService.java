@@ -9,5 +9,8 @@ import com.bootscoder.shopping_common.pojo.Brand;
  * @date created on 2024/4/15
  */
 public interface BrandService {
+    /**
+     * 根据id查询
+     */
     Brand findById(Long id);
 }

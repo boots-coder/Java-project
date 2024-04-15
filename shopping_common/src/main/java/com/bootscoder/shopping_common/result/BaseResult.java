@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 /**
  * 全局统一结果配置
  *
@@ -12,7 +14,7 @@ import lombok.Getter;
  */
 @Data
 @AllArgsConstructor
-public class BaseResult<T> {
+public class BaseResult<T> implements Serializable {
     // 状态码(成功:200 失败:其他)
     private Integer code;
     // 提示消息
