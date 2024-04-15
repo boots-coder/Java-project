@@ -18,7 +18,7 @@ public class Orders implements Serializable{
     @TableId(type = IdType.ASSIGN_ID)
     private String id; // 订单编号,后台自动生成
     @TableField(exist = false) // 数据库不存在该字段
-    private List<CartGoods> cartGoods; // 订单商品集合
+    private List<CartGoods> cartGoods; // 购物车商品集合
     private BigDecimal payment; // 支付金额
     private Integer paymentType; // 支付方式  1、微信支付   2、支付宝支付
     private BigDecimal postFee; // 邮费
