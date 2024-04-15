@@ -1,6 +1,7 @@
 package com.bootscoder.shopping_manager_api.controller;
 
 import com.bootscoder.shopping_common.pojo.Brand;
+import com.bootscoder.shopping_common.result.BaseResult;
 import com.bootscoder.shopping_common.service.BrandService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,10 @@ import java.security.PrivateKey;
 public class BrandController {
     @DubboReference
     private BrandService brandService;
+
     @GetMapping("/findById")
-    public Brand findById(Long id){
-        return brandService.findById(id);
+    public BaseResult<Brand> findById(Long id){
+        Brand brand = brandService.findById(id);
+        return BaseResult.ok(brand);
     }
 }
