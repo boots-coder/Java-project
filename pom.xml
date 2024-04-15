@@ -13,7 +13,10 @@
     <modules>
         <!-- 通用模块，包含实体类，服务接口，工具类等 -->
         <module>shopping_common</module>
-
+        <!-- 商品的服务模块-->
+        <module>shopping_goods_service</module>
+        <!-- 管理员管理网站操作的api -->
+        <module>shopping_manager_api</module>
     </modules>
 
     <properties>
