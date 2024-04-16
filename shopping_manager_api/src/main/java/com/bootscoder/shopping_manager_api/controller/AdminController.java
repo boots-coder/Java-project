@@ -32,13 +32,13 @@ public class AdminController {
         return BaseResult.ok();
     }
     @DeleteMapping("/delete")
-    public BaseResult delete(@RequestParam Long id) {
+    public BaseResult delete(@RequestParam("aid") Long id) {
         adminService.delete(id);
         return BaseResult.ok();
     }
     @GetMapping("/findById")
-    public BaseResult<Admin> findById(Long aid) {
-        Admin admin = adminService.findById(aid);
+    public BaseResult<Admin> findById(@RequestParam("aid") Long id) {
+        Admin admin = adminService.findById(id);
         return BaseResult.ok(admin);
     }
     @GetMapping("/search")
