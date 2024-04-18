@@ -9,6 +9,11 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,8 +68,15 @@ public class AdminController {
         Admin admin = adminService.findById(id);
         return BaseResult.ok(admin);
     }
+    /**
+     * 分页查询管理员
+     * @param page 页码
+     * @param size 每天条数
+     * @return 查询结果
+     */
     @GetMapping("/search")
-    public BaseResult<Page<Admin>> search(int page, int size) {
+    @PreAuthorize("hasAnyAuthority('/admin/search')")
+    public BaseResult<Page<Admin>> search(int page, int size){
         Page<Admin> adminPage = adminService.search(page, size);
         return BaseResult.ok(adminPage);
     }
@@ -73,4 +85,21 @@ public class AdminController {
         adminService.updateRoleToAdmin(aid,rids);
         return BaseResult.ok();
     }
+    /**
+     * 获取登录管理员名
+     *
+     * @return 管理员名
+     */
+    @GetMapping("/getUsername")
+    public BaseResult<String> getUsername() {
+        // 1.获取会话对象
+        SecurityContext context = SecurityContextHolder.getContext();
+        // 2.获取认证对象
+        Authentication authentication = context.getAuthentication();
+        // 3.获取登录用户信息
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        return BaseResult.ok(username);
+    }
+
 }
