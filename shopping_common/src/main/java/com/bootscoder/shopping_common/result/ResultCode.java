@@ -2,6 +2,7 @@ package com.bootscoder.shopping_common.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 状态码
@@ -13,8 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultCode {
     // 正常
-    SUCCESS(200, "OK")
-    ,
+    SUCCESS(200, "OK"),
     // 系统异常
     SYSTEM_ERROR(500, "系统异常"),
     // 参数异常

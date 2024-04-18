@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_admin_service.mapper.AdminMapper;
 import com.bootscoder.shopping_common.pojo.Admin;
 import com.bootscoder.shopping_common.pojo.Permission;
+import com.bootscoder.shopping_common.result.BaseResult;
+import com.bootscoder.shopping_common.result.MyException;
+import com.bootscoder.shopping_common.result.ResultCode;
 import com.bootscoder.shopping_common.service.AdminService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +65,8 @@ public class AdminServiceImpl implements AdminService {
     public void updateRoleToAdmin(Long aid, Long[] rids) {
         if (aid == null || aid <= 0) {
             //这个异常我想让我的异常捕获器捕捉到该怎么办呢？
-            throw new IllegalArgumentException("Invalid administrator ID");
+            throw new MyException(ResultCode.PARAMETER_ERROR.getCode(),
+                    "admin id can not be null or -1");
         }
         // 删除用户的所有角色
         adminMapper.deleteAdminAllRole(aid);
