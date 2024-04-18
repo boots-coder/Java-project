@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_admin_service.mapper.AdminMapper;
 import com.bootscoder.shopping_common.pojo.Admin;
 import com.bootscoder.shopping_common.pojo.Permission;
-import com.bootscoder.shopping_common.result.BaseResult;
 import com.bootscoder.shopping_common.result.MyException;
 import com.bootscoder.shopping_common.result.ResultCode;
 import com.bootscoder.shopping_common.service.AdminService;
@@ -59,6 +58,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Page<Admin> search(int page, int size) {
+
         return adminMapper.selectPage(new Page<>(page, size), null);
     }
     @Override

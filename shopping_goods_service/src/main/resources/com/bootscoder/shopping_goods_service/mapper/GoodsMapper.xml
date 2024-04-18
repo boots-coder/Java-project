@@ -41,38 +41,35 @@
     </resultMap>
     <select id="findById" parameterType="long" resultMap="goodsMapper">
         SELECT
-            boots_goods.id bid,
-            boots_goods.goodsName goodsName,
-            boots_goods.caption caption,
-            boots_goods.price price,
-            boots_goods.headerPic headerPic,
-            boots_goods.introduction introduction,
-            boots_goods.isMarketable isMarketable,
-            boots_goods.brandId brandId,
-            boots_goods.productType1Id productType1Id,
-            boots_goods.productType2Id productType2Id,
-            boots_goods.productType3Id productType3Id,
-            boots_goods_image.id imageId,
-            boots_goods_image.imageTitle imageTitle,
-            boots_goods_image.imageUrl imageUrl,
-            boots_specification.id specificationId,
-            boots_specification.specName specName,
-            boots_specification.productTypeId productTypeId,
-            boots_specification_option.id optionId,
-            boots_specification_option.optionName optionName
+            boots_goods.id AS bid,
+            boots_goods.goodsName AS goodsName,
+            boots_goods.caption AS caption,
+            boots_goods.price AS price,
+            boots_goods.headerPic AS headerPic,
+            boots_goods.introduction AS introduction,
+            boots_goods.isMarketable AS isMarketable,
+            boots_goods.brandId AS brandId,
+            boots_goods.productType1Id AS productType1Id,
+            boots_goods.productType2Id AS productType2Id,
+            boots_goods.productType3Id AS productType3Id,
+            boots_goods_image.id AS imageId,
+            boots_goods_image.imageTitle AS imageTitle,
+            boots_goods_image.imageUrl AS imageUrl,
+            boots_specification.id AS specificationId,
+            boots_specification.specName AS specName,
+            boots_specification.productTypeId AS productTypeId,
+            boots_specification_option.id AS optionId,
+            boots_specification_option.optionName AS optionName
         FROM
-            boots_goods,
-            boots_goods_image,
-            boots_goods_specification_option,
-            boots_specification_option,
-            boots_specification
+            boots_goods
+                LEFT JOIN boots_goods_image ON boots_goods.id = boots_goods_image.goodsId
+                LEFT JOIN boots_goods_specification_option ON boots_goods.id = boots_goods_specification_option.gid
+                LEFT JOIN boots_specification_option ON boots_goods_specification_option.optionId = boots_specification_option.id
+                LEFT JOIN boots_specification ON boots_specification_option.specId = boots_specification.id
         WHERE
-            boots_goods.id = boots_goods_image.goodsId
-          AND boots_goods.id = boots_goods_specification_option.gid
-          AND boots_goods_specification_option.optionId = boots_specification_option.id
-          AND boots_specification_option.specId = boots_specification.id
-          AND boots_goods.id = #{gid}
+            boots_goods.id = #{gid}
     </select>
+
 
     <resultMap id="goodsDescMapper" type="com.bootscoder.shopping_common.pojo.GoodsDesc">
         <id property="id" column="bid"></id>

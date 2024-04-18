@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.*;
 import com.bootscoder.shopping_common.service.GoodsService;
-import com.bootscoder.shopping_common.service.SearchService;
 import com.bootscoder.shopping_goods_service.mapper.GoodsImageMapper;
 import com.bootscoder.shopping_goods_service.mapper.GoodsMapper;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +21,7 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
     @Autowired
     private GoodsImageMapper goodsImageMapper;
+
 
 
     @Override
@@ -49,9 +48,6 @@ public class GoodsServiceImpl implements GoodsService {
         for (SpecificationOption option : options) {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
-
-//        // 将商品数据同步到ES中
-//        GoodsDesc goodsDesc = findDesc(goodsId);
     }
 
     @Override
@@ -85,30 +81,17 @@ public class GoodsServiceImpl implements GoodsService {
         for (SpecificationOption option : options) {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
-
-//        // 将商品数据同步到ES中
-//        GoodsDesc goodsDesc = findDesc(goodsId);
-//        // 将商品数据同步到购物车
-//        CartGoods cartGoods = new CartGoods();
-//        cartGoods.setGoodId(goods.getId());
-//        cartGoods.setGoodsName(goods.getGoodsName());
-//        cartGoods.setHeaderPic(goods.getHeaderPic());
-//        cartGoods.setPrice(goods.getPrice());
     }
 
     @Override
     public Goods findById(Long id) {
+        //修复有规格才能查看详情的bug
         return goodsMapper.findById(id);
     }
 
     @Override
     public void putAway(Long id, Boolean isMarketable) {
         goodsMapper.putAway(id,isMarketable);
-        // 上架时数据同步到ES，下架时删除ES数据
-        if (isMarketable){
-            // 将商品数据同步到ES中
-//            GoodsDesc goodsDesc = findDesc(id);
-        }
     }
 
     @Override
@@ -118,7 +101,8 @@ public class GoodsServiceImpl implements GoodsService {
         if (goods != null && StringUtils.hasText(goods.getGoodsName())){
             queryWrapper.like("goodsName",goods.getGoodsName());
         }
-        return goodsMapper.selectPage(new Page(page, size), queryWrapper);
+        Page page1 = goodsMapper.selectPage(new Page(page, size), queryWrapper);
+        return page1;
     }
 
     @Override
@@ -130,6 +114,4 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodsDesc findDesc(Long id) {
         return goodsMapper.findDesc(id);
     }
-
-
 }

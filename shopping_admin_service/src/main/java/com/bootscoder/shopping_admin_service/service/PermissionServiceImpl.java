@@ -44,6 +44,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Page<Permission> search(int page, int size) {
+
         return permissionMapper.selectPage(new Page(page,size),null);
     }
 

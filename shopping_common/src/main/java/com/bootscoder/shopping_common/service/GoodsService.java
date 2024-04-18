@@ -3,6 +3,10 @@ package com.bootscoder.shopping_common.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.Goods;
 import com.bootscoder.shopping_common.pojo.GoodsDesc;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
