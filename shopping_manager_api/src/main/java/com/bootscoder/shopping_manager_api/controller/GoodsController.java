@@ -72,7 +72,6 @@ public class GoodsController {
      */
     @GetMapping("/search")
     public BaseResult<Page<Goods>> search(Goods goods, int page, int size){
-        Page<Goods> page1 = goodsService.search(goods, page, size);
-        return BaseResult.ok(page1);
+        return BaseResult.ok(goodsService.search(goods, page, size));
     }
 }

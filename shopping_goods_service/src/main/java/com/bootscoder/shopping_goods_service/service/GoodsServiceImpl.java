@@ -86,14 +86,14 @@ public class GoodsServiceImpl implements GoodsService {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
 
-        // 将商品数据同步到ES中
-        GoodsDesc goodsDesc = findDesc(goodsId);
-        // 将商品数据同步到购物车
-        CartGoods cartGoods = new CartGoods();
-        cartGoods.setGoodId(goods.getId());
-        cartGoods.setGoodsName(goods.getGoodsName());
-        cartGoods.setHeaderPic(goods.getHeaderPic());
-        cartGoods.setPrice(goods.getPrice());
+//        // 将商品数据同步到ES中
+//        GoodsDesc goodsDesc = findDesc(goodsId);
+//        // 将商品数据同步到购物车
+//        CartGoods cartGoods = new CartGoods();
+//        cartGoods.setGoodId(goods.getId());
+//        cartGoods.setGoodsName(goods.getGoodsName());
+//        cartGoods.setHeaderPic(goods.getHeaderPic());
+//        cartGoods.setPrice(goods.getPrice());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class GoodsServiceImpl implements GoodsService {
         // 上架时数据同步到ES，下架时删除ES数据
         if (isMarketable){
             // 将商品数据同步到ES中
-            GoodsDesc goodsDesc = findDesc(id);
+//            GoodsDesc goodsDesc = findDesc(id);
         }
     }
 
@@ -118,8 +118,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (goods != null && StringUtils.hasText(goods.getGoodsName())){
             queryWrapper.like("goodsName",goods.getGoodsName());
         }
-        Page page1 = goodsMapper.selectPage(new Page(page, size), queryWrapper);
-        return page1;
+        return goodsMapper.selectPage(new Page(page, size), queryWrapper);
     }
 
     @Override
