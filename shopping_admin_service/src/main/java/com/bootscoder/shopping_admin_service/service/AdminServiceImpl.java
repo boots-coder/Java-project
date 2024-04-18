@@ -1,5 +1,6 @@
 package com.bootscoder.shopping_admin_service.service;
 
+import com.alibaba.nacos.common.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_admin_service.mapper.AdminMapper;
@@ -32,8 +33,15 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void update(Admin admin) {
+        // 如果前端传来空密码，则密码还是原来的密码
+        if(!StringUtils.hasText(admin.getPassword())){
+            // 查询原来的密码
+            String password = adminMapper.selectById(admin.getAid()).getPassword();
+            admin.setPassword(password);
+        }
         adminMapper.updateById(admin);
     }
+
 
     @Override
     public void delete(Long id) {
