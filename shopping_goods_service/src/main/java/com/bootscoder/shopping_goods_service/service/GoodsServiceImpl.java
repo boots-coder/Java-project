@@ -50,8 +50,8 @@ public class GoodsServiceImpl implements GoodsService {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
 
-        // 将商品数据同步到ES中
-        GoodsDesc goodsDesc = findDesc(goodsId);
+//        // 将商品数据同步到ES中
+//        GoodsDesc goodsDesc = findDesc(goodsId);
     }
 
     @Override

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bootscoder.shopping_goods_service.mapper.SpecificationMapper">
+    <resultMap id="specificationMapper" type="com.bootscoder.shopping_common.pojo.Specification">
+        <id property="id" column="bid"></id>
+        <result property="specName" column="specName"></result>
+        <result property="productTypeId" column="productTypeId"></result>
+        <collection property="specificationOptions" column="specId" ofType="com.bootscoder.shopping_common.pojo.SpecificationOption">
+            <id property="id" column="oid"></id>
+            <result property="optionName" column="optionName"></result>
+            <result property="specId" column="specId"></result>
+        </collection>
+    </resultMap>
+    <select id="findById" parameterType="long" resultMap="specificationMapper">
+        SELECT
+            boots_specification.id AS bid,
+            boots_specification.specName,
+            boots_specification.productTypeId,
+            boots_specification_option.id AS oid,
+            boots_specification_option.optionName,
+            boots_specification_option.specId
+        FROM
+            boots_specification
+                LEFT JOIN boots_specification_option
+                          ON boots_specification.id = boots_specification_option.specId
+        WHERE
+            boots_specification.id = #{id}
+    </select>
+
+    <select id="findByProductTypeId" parameterType="long" resultMap="specificationMapper">
+        SELECT
+            boots_specification.id AS bid,
+            boots_specification.specName,
+            boots_specification.productTypeId,
+            boots_specification_option.id AS oid,
+            boots_specification_option.optionName,
+            boots_specification_option.specId
+        FROM
+            boots_specification
+                LEFT JOIN boots_specification_option
+                          ON boots_specification.id = boots_specification_option.specId
+        WHERE
+            boots_specification.productTypeId = #{productTypeId}
+    </select>
+</mapper>

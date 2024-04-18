@@ -30,7 +30,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         } else if (productTypeParent.getLevel() < 3) { // 如果父类型级<3 则级别为父级别+1
             productType.setLevel(productTypeParent.getLevel() + 1);
         } else if (productTypeParent.getLevel() == 3){ // 如果父类型级=3 则不能添加子级别
-//            throw new MyException(ResultCode.INSERT_PRODUCT_TYPE_ERROR);
+            throw new MyException(ResultCode.INSERT_PRODUCT_TYPE_ERROR);
         }
         productTypeMapper.insert(productType);
 
@@ -46,7 +46,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         } else if (productTypeParent.getLevel() < 3) { // 如果父类型级<3 则级别为父级别+1
             productType.setLevel(productTypeParent.getLevel() + 1);
         } else if (productTypeParent.getLevel() == 3){ // 如果父类型级=3 则不能添加子级别
-//            throw new BusException(CodeEnum.INSERT_PRODUCT_TYPE_ERROR);
+            throw new MyException(ResultCode.INSERT_PRODUCT_TYPE_ERROR);
         }
         productTypeMapper.updateById(productType);
     }
@@ -59,7 +59,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         List<ProductType> productTypes = productTypeMapper.selectList(queryWrapper);
         // 如果该类型有子类型，删除失败
         if (!CollectionUtils.isEmpty(productTypes)){
-//            throw new BusException(CodeEnum.DELETE_PRODUCT_TYPE_ERROR);
+            throw new MyException(ResultCode.DELETE_PRODUCT_TYPE_ERROR);
         }
         productTypeMapper.deleteById(id);
 
