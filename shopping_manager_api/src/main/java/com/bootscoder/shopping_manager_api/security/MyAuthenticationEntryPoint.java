@@ -1,4 +1,4 @@
-package com.bootscoder.shopping_manager_api.securityhandler;
+package com.bootscoder.shopping_manager_api.security;
 
 import com.alibaba.fastjson2.JSON;
 import com.bootscoder.shopping_common.result.BaseResult;

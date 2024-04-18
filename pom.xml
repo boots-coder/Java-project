@@ -96,6 +96,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
+
     </dependencies>
 
     <!-- 插件 -->

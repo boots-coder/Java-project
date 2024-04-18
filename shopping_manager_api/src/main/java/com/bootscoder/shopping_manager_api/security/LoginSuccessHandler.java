@@ -1,4 +1,4 @@
-package com.bootscoder.shopping_manager_api.securityhandler;
+package com.bootscoder.shopping_manager_api.security;
 
 import com.alibaba.fastjson2.JSON;
 import com.bootscoder.shopping_common.result.BaseResult;
@@ -6,8 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.io.IOException;
