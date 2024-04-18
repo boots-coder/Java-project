@@ -1,12 +1,16 @@
 package com.bootscoder.shopping_admin_service.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_admin_service.mapper.AdminMapper;
 import com.bootscoder.shopping_common.pojo.Admin;
+import com.bootscoder.shopping_common.pojo.Permission;
 import com.bootscoder.shopping_common.service.AdminService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 管理员实现类
@@ -61,4 +65,16 @@ public class AdminServiceImpl implements AdminService {
             }
         }
     }
+    @Override
+    public Admin findByAdminName(String username) {
+        QueryWrapper<Admin> wrapper = new QueryWrapper();
+        wrapper.eq("username", username);
+        Admin admin = adminMapper.selectOne(wrapper);
+        return admin;
+    }
+    @Override
+    public List<Permission> findAllPermission(String username) {
+        return adminMapper.findAllPermission(username);
+    }
+
 }

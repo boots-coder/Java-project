@@ -39,4 +39,20 @@
                 LEFT JOIN boots_permission on boots_role_permission.pid = boots_permission.pid
         WHERE boots_admin.username = #{username}
     </select>
+    <select id="findAllPermission" resultType="com.bootscoder.shopping_common.pojo.Permission" parameterType="string">
+        SELECT
+            DISTINCT boots_permission.*
+        FROM
+            boots_admin
+                LEFT JOIN boots_admin_role
+                          ON boots_admin.aid = boots_admin_role.aid
+                LEFT JOIN boots_role
+                          ON boots_admin_role.rid = boots_role.rid
+                LEFT JOIN boots_role_permission
+                          ON boots_role.rid = boots_role_permission.rid
+                LEFT JOIN boots_permission
+                          ON boots_role_permission.pid = boots_permission.pid
+        WHERE boots_admin.username = #{username}
+    </select>
+
 </mapper>

@@ -2,6 +2,9 @@ package com.bootscoder.shopping_common.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.Admin;
+import com.bootscoder.shopping_common.pojo.Permission;
+
+import java.util.List;
 
 /**
  * 管理员服务
@@ -34,4 +37,13 @@ public interface AdminService {
      * 更新管理员角色
      */
     void updateRoleToAdmin(Long aid, Long[] rids);
+    /**
+     *     根据用户名查询管理员
+     */
+    Admin findByAdminName(String username);
+    /**
+     *     根据用户名查询权限
+     */
+    List<Permission> findAllPermission(String username);
+
 }
