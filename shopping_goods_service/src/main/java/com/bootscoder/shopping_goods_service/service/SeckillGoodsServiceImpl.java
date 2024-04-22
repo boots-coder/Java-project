@@ -1,6 +1,4 @@
 package com.bootscoder.shopping_goods_service.service;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.SeckillGoods;
 import com.bootscoder.shopping_common.service.SeckillGoodsService;
