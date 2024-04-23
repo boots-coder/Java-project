@@ -29,6 +29,10 @@
         <module>shopping_user_service</module>
         <!-- 前台用户管理接口模块 -->
         <module>shopping_user_customer_api</module>
+        <!-- 前台搜索接口模块 -->
+        <module>shopping_search_customer_api</module>
+        <!-- 搜索服务模块 -->
+        <module>shopping_search_service</module>
     </modules>
 
     <properties>
