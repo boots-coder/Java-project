@@ -26,11 +26,11 @@ public class CategoryController {
         List<Category> categories = categoryService.findAll();
         return BaseResult.ok(categories);
     }
-
-    @GetMapping("/test")
-    public BaseResult test(HttpServletRequest request){
-        Enumeration<String> headerNames = request.getHeaderNames();
-        return BaseResult.ok();
-    }
+//
+//    @GetMapping("/test")
+//    public BaseResult test(HttpServletRequest request){
+//        Enumeration<String> headerNames = request.getHeaderNames();
+//        return BaseResult.ok();
+//    }
 
 }
