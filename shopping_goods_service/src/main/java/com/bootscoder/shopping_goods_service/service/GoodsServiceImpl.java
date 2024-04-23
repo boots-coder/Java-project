@@ -114,4 +114,5 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodsDesc findDesc(Long id) {
         return goodsMapper.findDesc(id);
     }
+
 }
