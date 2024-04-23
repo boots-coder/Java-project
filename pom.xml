@@ -21,6 +21,8 @@
         <module>shopping_admin_service</module>
         <!-- 文件服务模块 -->
         <module>shopping_file_service</module>
+        <!-- 广告服务模块 -->
+        <module>shopping_category_service</module>
 
     </modules>
 
