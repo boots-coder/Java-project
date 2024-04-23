@@ -21,8 +21,17 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
     @Autowired
     private GoodsImageMapper goodsImageMapper;
+//    @Autowired
+//    private RocketMQTemplate rocketMQTemplate; // RocketMQ工具类
 
-
+    // 同步商品数据主题
+    private final String SYNC_GOOD_QUEUE = "sync_goods_queue";
+    // 删除商品数据主题
+    private final String DEL_GOOD_QUEUE = "del_goods_queue";
+    // 同步商品到购物车主题
+    private final String SYNC_CART_QUEUE = "sync_cart_queue";
+    // 删除商品到购物车主题
+    private final String DEL_CART_QUEUE = "del_cart_queue";
 
     @Override
     public void add(Goods goods) {
@@ -48,6 +57,10 @@ public class GoodsServiceImpl implements GoodsService {
         for (SpecificationOption option : options) {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
+
+        // 将商品数据同步到ES中
+        GoodsDesc goodsDesc = findDesc(goodsId);
+//        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
     }
 
     @Override
@@ -81,17 +94,37 @@ public class GoodsServiceImpl implements GoodsService {
         for (SpecificationOption option : options) {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
+
+        // 将商品数据同步到ES中
+        GoodsDesc goodsDesc = findDesc(goodsId);
+//        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
+        // 将商品数据同步到购物车
+        CartGoods cartGoods = new CartGoods();
+        cartGoods.setGoodId(goods.getId());
+        cartGoods.setGoodsName(goods.getGoodsName());
+        cartGoods.setHeaderPic(goods.getHeaderPic());
+        cartGoods.setPrice(goods.getPrice());
+//        rocketMQTemplate.syncSend(SYNC_CART_QUEUE,cartGoods);
     }
 
     @Override
     public Goods findById(Long id) {
-        //修复有规格才能查看详情的bug
         return goodsMapper.findById(id);
     }
 
     @Override
     public void putAway(Long id, Boolean isMarketable) {
         goodsMapper.putAway(id,isMarketable);
+        // 上架时数据同步到ES，下架时删除ES数据
+        if (isMarketable){
+            // 将商品数据同步到ES中
+            GoodsDesc goodsDesc = findDesc(id);
+//            rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
+        }else {
+//            rocketMQTemplate.syncSend(DEL_GOOD_QUEUE,id);
+            // 将购物车的商品删除
+//            rocketMQTemplate.syncSend(DEL_CART_QUEUE,id);
+        }
     }
 
     @Override
@@ -114,5 +147,4 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodsDesc findDesc(Long id) {
         return goodsMapper.findDesc(id);
     }
-
 }
