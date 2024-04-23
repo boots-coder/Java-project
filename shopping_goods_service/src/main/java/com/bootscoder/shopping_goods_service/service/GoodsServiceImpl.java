@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bootscoder.shopping_common.pojo.*;
 import com.bootscoder.shopping_common.service.GoodsService;
+import com.bootscoder.shopping_common.service.SearchService;
 import com.bootscoder.shopping_goods_service.mapper.GoodsImageMapper;
 import com.bootscoder.shopping_goods_service.mapper.GoodsMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,9 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
     @Autowired
     private GoodsImageMapper goodsImageMapper;
+    @DubboReference
+    private SearchService searchService;
+
 //    @Autowired
 //    private RocketMQTemplate rocketMQTemplate; // RocketMQ工具类
 
@@ -37,31 +42,37 @@ public class GoodsServiceImpl implements GoodsService {
     public void add(Goods goods) {
         // 插入商品数据
         goodsMapper.insert(goods);
+
+
         // 插入图片数据
         Long goodsId = goods.getId(); // 获取商品主键
-        List<GoodsImage> images = goods.getImages(); // 商品图片集合
+        List<GoodsImage> images = goods.getImages(); // 商品图片
         for (GoodsImage image : images) {
             image.setGoodsId(goodsId); // 给图片设置商品id
-            goodsImageMapper.insert(image); // 插入图片
+            goodsImageMapper.insert(image); //插入图片
         }
+
+
         // 插入商品_规格项数据
         // 1.获取规格
         List<Specification> specifications = goods.getSpecifications();
         // 2.获取规格项
-        List<SpecificationOption> options = new ArrayList();
+        List<SpecificationOption> options = new ArrayList(); //规格项集合
         // 遍历规格，获取规格中的所有规格项
         for (Specification specification : specifications) {
             options.addAll(specification.getSpecificationOptions());
         }
-        // 遍历规格项，插入商品_规格项数据
+        // 3.遍历规格项，插入商品_规格项数据
         for (SpecificationOption option : options) {
             goodsMapper.addGoodsSpecificationOption(goodsId,option.getId());
         }
 
-        // 将商品数据同步到ES中
+
+        // 将商品数据同步到es中
         GoodsDesc goodsDesc = findDesc(goodsId);
-//        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
+        searchService.syncGoodsToES(goodsDesc);
     }
+
 
     @Override
     public void update(Goods goods) {
