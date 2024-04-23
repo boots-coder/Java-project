@@ -23,7 +23,12 @@
         <module>shopping_file_service</module>
         <!-- 广告服务模块 -->
         <module>shopping_category_service</module>
-
+        <!-- 前台广告接口模块 -->
+        <module>shopping_category_customer_api</module>
+        <!-- 用户服务 -->
+        <module>shopping_user_service</module>
+        <!-- 前台用户管理接口模块 -->
+        <module>shopping_user_customer_api</module>
     </modules>
 
     <properties>
