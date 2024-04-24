@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 192.168.0.99:8848
+        server-addr: 192.168.66.100:8848
         namespace: 5455dc7a-b343-4866-a973-96d5cc1d9312
         file-extension: yaml
         prefix: shopping_cart_customer_api
