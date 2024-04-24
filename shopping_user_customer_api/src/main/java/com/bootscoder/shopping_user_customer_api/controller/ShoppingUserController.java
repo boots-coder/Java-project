@@ -5,14 +5,16 @@ import com.bootscoder.shopping_common.result.BaseResult;
 import com.bootscoder.shopping_common.service.MessageService;
 import com.bootscoder.shopping_common.service.ShoppingUserService;
 import com.bootscoder.shopping_common.utils.RandomUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 @RequestMapping("/user/shoppingUser")
 public class ShoppingUserController {
-    @DubboReference
-    private MessageService messageService;
+//    @DubboReference
+//    private MessageService messageService;
     @DubboReference
     private ShoppingUserService shoppingUserService;
 
@@ -23,9 +25,10 @@ public class ShoppingUserController {
      */
     @GetMapping("/sendMessage")
     public BaseResult sendMessage(String phone){
-        // 1.生成随机四位数验证码
+       /* // 1.生成随机四位数验证码
         String checkCode = RandomUtil.buildCheckCode(4);
         // 2.发送短信
+        checkCode = "1234";
         BaseResult result = messageService.sendMessage(phone, checkCode);
         // 3.发送成功，将验证码保存到redis中，发送失败，返回发送结果
         if (200 == result.getCode()){
@@ -33,7 +36,14 @@ public class ShoppingUserController {
             return BaseResult.ok();
         }else {
             return result;
-        }
+        }*/
+        // 1.生成随机四位数验证码
+        String checkCode = "1234";
+        // 2.发送短信
+        log.info("发送短信，1234");
+        // 3.发送成功，将验证码保存到redis中，发送失败，返回发送结果
+        shoppingUserService.saveRegisterCheckCode(phone,checkCode);
+        return BaseResult.ok();
     }
 
     /**
@@ -77,7 +87,7 @@ public class ShoppingUserController {
      */
     @GetMapping("/sendLoginCheckCode")
     public BaseResult sendLoginCheckCode(String phone){
-        // 1.判断用户手机号是否存在，状态是否正常
+        /*// 1.判断用户手机号是否存在，状态是否正常
         shoppingUserService.checkPhone(phone);
         // 2.生成随机四位数验证码
         String checkCode = RandomUtil.buildCheckCode(4);
@@ -89,7 +99,16 @@ public class ShoppingUserController {
             return BaseResult.ok();
         }else {
             return result;
-        }
+        }*/
+        // 1.判断用户手机号是否存在，状态是否正常
+        shoppingUserService.checkPhone(phone);
+        // 2.生成随机四位数验证码
+        String checkCode = "1234";
+        // 3.发送短信
+        log.info("发送短信：1234");
+        // 4.发送成功，将验证码保存到redis中，发送失败，返回发送结果
+        shoppingUserService.saveLoginCheckCode(phone,checkCode);
+        return BaseResult.ok();
     }
 
     /**

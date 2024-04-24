@@ -42,4 +42,5 @@ public interface GoodsService {
      *     查询商品详情
      */
     GoodsDesc findDesc(Long id);
+
 }
