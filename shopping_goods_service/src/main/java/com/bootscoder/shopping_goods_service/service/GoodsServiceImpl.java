@@ -9,6 +9,7 @@ import com.bootscoder.shopping_goods_service.mapper.GoodsImageMapper;
 import com.bootscoder.shopping_goods_service.mapper.GoodsMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -26,17 +27,17 @@ public class GoodsServiceImpl implements GoodsService {
     @DubboReference
     private SearchService searchService;
 
-//    @Autowired
-//    private RocketMQTemplate rocketMQTemplate; // RocketMQ工具类
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate; // RocketMQ工具类
 
     // 同步商品数据主题
     private final String SYNC_GOOD_QUEUE = "sync_goods_queue";
     // 删除商品数据主题
     private final String DEL_GOOD_QUEUE = "del_goods_queue";
-    // 同步商品到购物车主题
-    private final String SYNC_CART_QUEUE = "sync_cart_queue";
-    // 删除商品到购物车主题
-    private final String DEL_CART_QUEUE = "del_cart_queue";
+//    // 同步商品到购物车主题
+//    private final String SYNC_CART_QUEUE = "sync_cart_queue";
+//    // 删除商品到购物车主题
+//    private final String DEL_CART_QUEUE = "del_cart_queue";
 
     @Override
     public void add(Goods goods) {
@@ -70,7 +71,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         // 将商品数据同步到es中
         GoodsDesc goodsDesc = findDesc(goodsId);
-        searchService.syncGoodsToES(goodsDesc);
+//        searchService.syncGoodsToES(goodsDesc);
+        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
     }
 
 
@@ -108,14 +110,14 @@ public class GoodsServiceImpl implements GoodsService {
 
         // 将商品数据同步到ES中
         GoodsDesc goodsDesc = findDesc(goodsId);
-//        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
-        // 将商品数据同步到购物车
-        CartGoods cartGoods = new CartGoods();
-        cartGoods.setGoodId(goods.getId());
-        cartGoods.setGoodsName(goods.getGoodsName());
-        cartGoods.setHeaderPic(goods.getHeaderPic());
-        cartGoods.setPrice(goods.getPrice());
-//        rocketMQTemplate.syncSend(SYNC_CART_QUEUE,cartGoods);
+        rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
+//        // 将商品数据同步到购物车
+//        CartGoods cartGoods = new CartGoods();
+//        cartGoods.setGoodId(goods.getId());
+//        cartGoods.setGoodsName(goods.getGoodsName());
+//        cartGoods.setHeaderPic(goods.getHeaderPic());
+//        cartGoods.setPrice(goods.getPrice());
+////        rocketMQTemplate.syncSend(SYNC_CART_QUEUE,cartGoods);
     }
 
     @Override
@@ -130,11 +132,9 @@ public class GoodsServiceImpl implements GoodsService {
         if (isMarketable){
             // 将商品数据同步到ES中
             GoodsDesc goodsDesc = findDesc(id);
-//            rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
+            rocketMQTemplate.syncSend(SYNC_GOOD_QUEUE,goodsDesc);
         }else {
-//            rocketMQTemplate.syncSend(DEL_GOOD_QUEUE,id);
-            // 将购物车的商品删除
-//            rocketMQTemplate.syncSend(DEL_CART_QUEUE,id);
+            rocketMQTemplate.syncSend(DEL_GOOD_QUEUE,id);
         }
     }
 
