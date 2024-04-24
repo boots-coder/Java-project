@@ -5,7 +5,7 @@ spring:
     nacos:
       config:
         server-addr: 192.168.66.100:8848
-        namespace: 5455dc7a-b343-4866-a973-96d5cc1d9312
+        namespace: 44d5da8b-b356-4aa8-b4be-49a54cb8b8ee
         file-extension: yaml
         prefix: shopping_cart_customer_api
 
