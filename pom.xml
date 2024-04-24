@@ -33,6 +33,14 @@
         <module>shopping_search_customer_api</module>
         <!-- 搜索服务模块 -->
         <module>shopping_search_service</module>
+        <!-- 购物车服务模块 -->
+        <module>shopping_category_service</module>
+        <!-- 购物车api模块 -->
+        <module>shopping_category_customer_api</module>
+        <!-- 订单服务模块 -->
+        <module>shopping_order_service</module>
+        <!-- 订单api模块 -->
+        <module>shopping_order_customer_api</module>
     </modules>
 
     <properties>

@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev #环境
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.99:8848
+        namespace: 5455dc7a-b343-4866-a973-96d5cc1d9312
+        file-extension: yaml
+        prefix: shopping_order_customer_api
+
