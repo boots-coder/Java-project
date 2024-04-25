@@ -38,22 +38,22 @@
         SELECT
             *
         FROM
-            bz_orders
-                LEFT JOIN bz_cart_goods ON bz_orders.id = bz_cart_goods.orderId
+            boots_orders
+                LEFT JOIN boots_cart_goods ON boots_orders.id = boots_cart_goods.orderId
         WHERE
-            bz_orders.id = #{id}
+            boots_orders.id = #{id}
     </select>
 
     <select id="findOrderByUserIdAndStatus" resultMap="ordersMapper">
         SELECT
             *
         FROM
-            bz_orders
-                LEFT JOIN bz_cart_goods ON bz_orders.id = bz_cart_goods.orderId
+            boots_orders
+                LEFT JOIN boots_cart_goods ON boots_orders.id = boots_cart_goods.orderId
         <where>
-            bz_orders.userId = #{userId}
+            boots_orders.userId = #{userId}
             <if test="status !=null">
-                and bz_orders.status = #{status}
+                and boots_orders.status = #{status}
             </if>
         </where>
     </select>

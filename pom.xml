@@ -41,6 +41,10 @@
         <module>shopping_order_service</module>
         <!-- 订单api模块 -->
         <module>shopping_order_customer_api</module>
+        <!-- 秒杀服务 -->
+        <module>shopping_seckill_service</module>
+        <!-- 秒杀api -->
+        <module>shopping_seckill_customer_api</module>
     </modules>
 
     <properties>

@@ -54,12 +54,12 @@ public class AddressController {
 
     /**
      * 新增地址
-     * @param userId 用户id
      * @param address 地址对象
      * @return 执行结果
      */
     @PostMapping("/add")
-    public BaseResult add(@RequestHeader Long userId, @RequestBody Address address){
+    public BaseResult add( @RequestBody Address address){
+        Long userId = 29L;
         address.setUserId(userId);
         addressService.add(address);
         return BaseResult.ok();
@@ -67,12 +67,12 @@ public class AddressController {
 
     /**
      * 删除地址
-     * @param userId 用户id
      * @param address 地址对象
      * @return 执行结果
      */
     @PutMapping("/update")
-    public BaseResult update(@RequestHeader Long userId, @RequestBody Address address){
+    public BaseResult update( @RequestBody Address address){
+        Long userId = 29L;
         address.setUserId(userId);
         addressService.update(address);
         return BaseResult.ok();
@@ -102,11 +102,11 @@ public class AddressController {
 
     /**
      * 查询登录用户的所有地址
-     * @param userId 用户id
      * @return 查询结果
      */
     @GetMapping("/findByUser")
-    public BaseResult<List<Address>> findByUser(@RequestHeader Long userId){
+    public BaseResult<List<Address>> findByUser(){
+        Long userId = 29L;
         List<Address> addresses = addressService.findByUser(userId);
         return BaseResult.ok(addresses);
     }

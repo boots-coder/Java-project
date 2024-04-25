@@ -19,11 +19,11 @@ public class CarController {
 
     /**
      * 查询用户购物车列表
-     * @param userId 用户id
      * @return 用户购物车列表
      */
     @GetMapping("/findCartList")
-    public BaseResult<List<CartGoods>> findCartList(@RequestHeader Long userId){
+    public BaseResult<List<CartGoods>> findCartList(){
+        Long userId = 29L;
         List<CartGoods> cartList = cartService.findCartList(userId);
         return BaseResult.ok(cartList);
     }
@@ -31,36 +31,36 @@ public class CarController {
     /**
      * 新增商品到购物车
      * @param cartGoods 购物车商品
-     * @param userId 令牌中携带的用户id
      * @return 操作结果
      */
     @PostMapping("/addCart")
-    public BaseResult addCart(@RequestBody CartGoods cartGoods,@RequestHeader Long userId){
+    public BaseResult addCart(@RequestBody CartGoods cartGoods){
+        Long userId = 29L;
         cartService.addCard(userId, cartGoods);
         return BaseResult.ok();
     }
 
     /**
      * 修改购物车商品数量
-     * @param userId 令牌中携带的用户id
      * @param goodId 商品id
      * @param num 修改后的数量
      * @return 操作结果
      */
     @GetMapping("/handleCart")
-    public BaseResult addCart(@RequestHeader Long userId,Long goodId,Integer num){
+    public BaseResult addCart(Long goodId,Integer num){
+        Long userId = 29L;
         cartService.handleCart(userId, goodId, num);
         return BaseResult.ok();
     }
 
     /**
      * 删除购物车商品
-     * @param userId 令牌中携带的用户id
      * @param goodId 商品id
      * @return 操作结果
      */
     @DeleteMapping("/deleteCart")
-    public BaseResult deleteCart(@RequestHeader Long userId,Long goodId){
+    public BaseResult deleteCart(Long goodId){
+        Long userId = 29L;
         cartService.deleteCartOption(userId, goodId);
         return BaseResult.ok();
     }

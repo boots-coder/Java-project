@@ -22,11 +22,11 @@ public class OrdersController {
      * 生成订单
      *
      * @param orders 订单对象
-     * @param userId 用户id
      * @return 生成的订单
      */
     @PostMapping("/add")
-    public BaseResult<Orders> add(@RequestBody Orders orders, @RequestHeader Long userId) {
+    public BaseResult<Orders> add(@RequestBody Orders orders) {
+        Long userId = 29L;
         // 保存订单
         orders.setUserId(userId);
         Orders orders1 = ordersService.add(orders);
@@ -52,11 +52,11 @@ public class OrdersController {
     /**
      * 查询用户的订单
      * @param status 订单状态：1.未付款 2.已付款 3.未发货 4.已发货 5.交易成功 6.交易关闭 7.待评价，传入空值代表查询所有
-     * @param userId 用户id
      * @return 查询结果
      */
     @GetMapping("/findUserOrders")
-    public BaseResult<List<Orders>> findUserOrders(Integer status,@RequestHeader Long userId){
+    public BaseResult<List<Orders>> findUserOrders(Integer status){
+        Long userId =29L;
         List<Orders> orders = ordersService.findUserOrders(userId, status);
         return BaseResult.ok(orders);
     }

@@ -101,10 +101,10 @@ public class JwtUtils {
 
     public static void main(String[] args){
         // 生成
-        String boots = sign(1001L, "boots");
-        System.out.println(boots);
+        String token = sign(1001L, "boots");
+        System.out.println(token);
 
-        Map<String, Object> stringObjectMap = verify(boots);
+        Map<String, Object> stringObjectMap = verify(token);
         System.out.println(stringObjectMap.get("userId"));
         System.out.println(stringObjectMap.get("username"));
     }
